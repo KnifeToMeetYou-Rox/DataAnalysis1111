@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>以诚SLG 1.29～1.36重点工作与数据验证</title>
+  <style>
+    :root{--bg:#f7f5ff;--card:rgba(255,255,255,.84);--text:#28334d;--muted:#6f7890;--line:rgba(133,153,210,.22);--blue:#6fa8ff;--teal:#71d9e6;--green:#75cfe3;--orange:#f4a0c7;--red:#ef7895;--purple:#9a8dff;--pink:#f39ac6;--shadow:0 14px 34px rgba(112,126,180,.15)}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 0%,rgba(110,198,255,.34),transparent 31%),radial-gradient(circle at 96% 8%,rgba(255,157,204,.3),transparent 34%),linear-gradient(145deg,#f2f9ff 0%,#f7f4ff 48%,#fff3f9 100%);background-attachment:fixed;color:var(--text);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.58}.wrap{max-width:1180px;margin:0 auto;padding:28px 22px 64px}
+    .hero{position:relative;overflow:hidden;padding:30px 32px;border:1px solid rgba(255,255,255,.55);border-radius:24px;color:#fff;background:linear-gradient(125deg,#69b9f8 0%,#858ff6 50%,#f29bc7 100%);box-shadow:0 18px 42px rgba(105,128,210,.24)}.hero:after{content:"";position:absolute;width:230px;height:230px;right:-70px;top:-115px;border-radius:50%;background:rgba(255,255,255,.16)}h1{position:relative;margin:0 0 8px;font-size:30px}.hero .sub,.scope{position:relative}.hero .sub{font-size:17px;opacity:.96}.scope{margin-top:16px;font-size:13px;opacity:.9}
+    h2{margin:36px 0 15px;font-size:23px;color:#344260}h3{margin:0 0 10px;font-size:17px}h4{margin:0 0 7px;font-size:15px}.section-lead{color:var(--muted);margin:-7px 0 16px}.grid{display:grid;gap:14px}.work-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}.work-card{position:relative;overflow:hidden;padding-top:22px}.work-card:before{content:"";position:absolute;left:0;top:0;right:0;height:6px;background:linear-gradient(90deg,#65b9ff,#8b91ff)}.work-card.green:before{background:linear-gradient(90deg,#65cde9,#82b7ff)}.work-card.orange:before{background:linear-gradient(90deg,#ffb0cf,#d897f4)}.work-card.purple:before{background:linear-gradient(90deg,#9b91ff,#ef9bce)}
+    .tag{display:inline-block;padding:4px 10px;border-radius:99px;background:#e9f3ff;color:#4778c5;font-size:12px;font-weight:700;margin-bottom:10px}.tag.green{background:#e6f8fb;color:#378aa0}.tag.orange{background:#fff0f7;color:#b65b87}.tag.red{background:#ffedf2;color:#b84f6c}.tag.purple{background:#f0edff;color:#7463ca}
+    .metric-label{color:var(--muted);font-size:13px}.metric-value{font-size:29px;font-weight:750;margin-top:2px;background:linear-gradient(100deg,#4f83d7,#9b78dc,#df78aa);-webkit-background-clip:text;background-clip:text;color:transparent}.metric-note{font-size:13px;color:var(--muted);margin-top:4px}.callout{border-left:5px solid #79a9ff}.callout.good{border-left-color:#74cfe2}.callout.warn{border-left-color:#f1a0c7}.callout.red{border-left-color:var(--red)}
+    ul{margin:7px 0 0;padding-left:21px}li{margin:6px 0}.value-list{display:grid;gap:10px}.value-item{padding:12px 0;border-bottom:1px solid var(--line)}.value-item:last-child{border-bottom:0;padding-bottom:0}.value-item strong{display:block;margin-bottom:3px}.value-item p{margin:0;color:var(--muted)}
+    .table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th{background:linear-gradient(90deg,#eef6ff,#fff0f7);color:#53617e;font-weight:650}th:first-child,td:first-child{text-align:left}.key-row{background:rgba(239,247,255,.72)}.note{font-size:12px;color:var(--muted);margin:10px 0 0}
+    .funnel{display:grid;gap:9px}.funnel-row{display:grid;grid-template-columns:62px 1fr 90px 88px;gap:10px;align-items:center;font-size:13px}.track{height:13px;background:#eaeaf7;border-radius:8px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#64b9ff,#8e91ff 55%,#ee96c5);border-radius:8px;box-shadow:0 0 12px rgba(123,157,255,.24)}.retention{color:var(--muted);text-align:right}.count{text-align:right;font-variant-numeric:tabular-nums}
+    .priority{display:grid;grid-template-columns:54px 1fr;gap:12px;align-items:start}.priority-code{height:40px;border-radius:13px;background:linear-gradient(135deg,#e4f3ff,#e9e8ff);color:#507ac1;display:flex;align-items:center;justify-content:center;font-weight:750}.priority-code.p1{background:linear-gradient(135deg,#fff0f7,#f4eaff);color:#ae5d8a}.priority-code.p2{background:linear-gradient(135deg,#e6f8fb,#eaf0ff);color:#43899d}
+    .boss{background:linear-gradient(130deg,#679ee9 0%,#8589e9 52%,#dc84b6 100%);color:#fff;border:1px solid rgba(255,255,255,.5);box-shadow:0 16px 38px rgba(110,111,195,.24)}.boss p{margin:0}.boss ul{margin-top:12px}.boss li{margin:8px 0}.footer{margin-top:32px;color:var(--muted);font-size:12px}
+    @media(max-width:900px){.work-grid,.kpis,.two{grid-template-columns:1fr 1fr}.funnel-row{grid-template-columns:56px 1fr 75px}.retention{display:none}}
+    @media(max-width:600px){.wrap{padding:14px 12px 42px}.hero{padding:23px 20px}h1{font-size:25px}.work-grid,.kpis,.two{grid-template-columns:1fr}.metric-value{font-size:25px}.card{padding:15px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <h1>以诚SLG 1.29～1.36重点工作与数据验证</h1>
+    <div class="sub">从功能建设到数据结果：ZD十关优化、秒建筑与首日体验</div>
+    <div class="scope">数据范围：S6（70026）｜北京时间2026-10-27 12:30～10-30 00:00｜印尼、菲律宾、巴西、美国Google｜全部与付费广告分组｜本报告于2026-11-11重新取数</div>
+  </section>
+
+  <h2>一、我的重点工作与产出</h2>
+  <p class="section-lead">围绕首日核心体验完成“战斗内容、城建效率、体验稳定性”三条线的系统建设。</p>
+  <section class="grid work-grid">
+    <article class="card work-card">
+      <span class="tag">ZD关卡优化</span>
+      <h3>主铺80004～80010七关，协助前三关优化</h3>
+      <ul><li>重点完成七关的内容、交互物、怪物、金币与防御塔布局。</li><li>强化6～10关差异化爽感、战斗节奏和连续推进体验。</li><li>协助80001～80003前段链路，并持续处理性能、表现与异常问题。</li></ul>
+    </article>
+    <article class="card work-card green">
+      <span class="tag green">秒建筑功能</span>
+      <h3>完成从规则到交互的完整系统方案</h3>
+      <ul><li>拆分比例加速池与尾时免费池，展示减免来源。</li><li>通过建筑头顶气泡直接免费完成，缩短操作路径。</li><li>覆盖钻石计价、配置、边界处理、埋点与测试设计。</li></ul>
+    </article>
+    <article class="card work-card orange">
+      <span class="tag orange">首日氛围与完整体验</span>
+      <h3>完善内容、演出与体验链路</h3>
+      <ul><li>优化镜头、表演、HeadUI、音效与配音，强化前期世界观和末日氛围。</li><li>推进丧尸攻城、希望值、幸存者驻派等首日内容。</li><li>梳理功能开放、引导衔接和跨系统推进节奏，让玩法教学与剧情表达自然衔接。</li><li>处理基础框架与流程稳定性，减少体验被异常打断。</li></ul>
+    </article>
+  </section>
+
+  <h2>二、阶段结果与体验验证</h2>
+  <section class="grid kpis">
+    <article class="card"><div class="metric-label">主铺七关首次挑战通关率</div><div class="metric-value">98.0%～99.4%</div><div class="metric-note">80004～80010关内难度稳定</div></article>
+    <article class="card"><div class="metric-label">主铺七关无结算率</div><div class="metric-value">0.55%～1.49%</div><div class="metric-note">未发现明显战斗中断信号</div></article>
+    <article class="card"><div class="metric-label">主铺七关首次失败率</div><div class="metric-value">最高1.06%</div><div class="metric-note">中后段没有明显数值墙</div></article>
+    <article class="card"><div class="metric-label">秒建筑曝光后参与率</div><div class="metric-value">80.9%</div><div class="metric-note">入口被玩家快速理解和使用</div></article>
+  </section>
+
+  <h3 style="margin-top:26px">ZD关卡：首次挑战质量</h3>
+  <p class="section-lead">首次挑战以玩家第一次进关为起点；首次出现通关或失败结算作为首次结果。它比原来的“观察期内最终通关过”更能反映关卡自身难度。</p>
+  <section class="card">
+    <div class="table-wrap"><table>
+      <thead><tr><th>关卡</th><th>首次进关</th><th>首次挑战通关率</th><th>首次失败率</th><th>进关后无结算退出率</th><th>首败后重试率</th><th>首败后最终通关率</th></tr></thead>
+      <tbody>
+        <tr><td>80001</td><td>12,838</td><td>89.7%</td><td>9.0%</td><td>1.34%</td><td>52.1%</td><td>40.7%</td></tr>
+        <tr><td>80002</td><td>8,970</td><td>90.1%</td><td>8.4%</td><td>1.53%</td><td>69.6%</td><td>63.8%</td></tr>
+        <tr><td>80003</td><td>5,211</td><td>90.7%</td><td>7.7%</td><td>1.59%</td><td>69.6%</td><td>56.9%</td></tr>
+        <tr class="key-row"><td>80004</td><td>3,554</td><td>98.1%</td><td>0.37%</td><td>1.49%</td><td>61.5%</td><td>61.5%</td></tr>
+        <tr class="key-row"><td>80005</td><td>2,349</td><td>98.0%</td><td>1.06%</td><td>0.94%</td><td>44.0%</td><td>44.0%</td></tr>
+        <tr class="key-row"><td>80006</td><td>1,235</td><td>98.5%</td><td>0.57%</td><td>0.97%</td><td>57.1%</td><td>57.1%</td></tr>
+        <tr class="key-row"><td>80007</td><td>841</td><td>98.2%</td><td>0.36%</td><td>1.43%</td><td>33.3%</td><td>33.3%</td></tr>
+        <tr class="key-row"><td>80008</td><td>411</td><td>98.8%</td><td>0.24%</td><td>0.97%</td><td>100.0%</td><td>100.0%</td></tr>
+        <tr class="key-row"><td>80009</td><td>219</td><td>99.1%</td><td>0%</td><td>0.91%</td><td>—</td><td>—</td></tr>
+        <tr class="key-row"><td>80010</td><td>181</td><td>99.4%</td><td>0%</td><td>0.55%</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">80008仅1名首次失败玩家，重试率样本过小，不应将100%解读为稳定结论。“首败后最终通关率”分母为首次失败人数。“无结算”是疑似退出口径，也可能包含断线、统计窗口结束或埋点缺失，不能全部解释为玩家主动退出。</p>
+  </section>
+
+  <section class="grid two" style="margin-top:14px">
+    <article class="card callout good">
+      <h3>主铺七关的关内表现稳定</h3>
+      <ul><li>80004～80010首次挑战通关率为98.0%～99.4%，没有出现新的数值墙。</li><li>首次失败率最高仅1.06%，无结算率为0.55%～1.49%。</li><li>原关卡数据中平均帧率中位数从约29提升至38，后段复杂度增加后仍保持稳定。</li><li>全部用户与付费广告表现接近，说明结果不依赖特定广告人群。</li></ul>
+    </article>
+    <article class="card callout">
+      <h3>前段链路可作为整体体验佐证</h3>
+      <ul><li>协助优化的80001～80003首次通关率约90%，保留了必要的教学与挑战感。</li><li>80002和80003首败后重试率均为69.6%，说明失败反馈没有直接造成大规模放弃。</li><li>首败后的最终通关率分别达到40.7%、63.8%、56.9%，重试链路能挽回部分玩家。</li></ul>
+    </article>
+  </section>
+
+  <h3 style="margin-top:26px">ZD关卡：推进漏斗</h3>
+  <section class="card">
+    <div class="funnel">
+      <div class="funnel-row"><strong>80001</strong><div class="track"><div class="fill" style="width:100%"></div></div><span class="count">12,838</span><span class="retention">起点</span></div>
+      <div class="funnel-row"><strong>80002</strong><div class="track"><div class="fill" style="width:69.9%"></div></div><span class="count">8,970</span><span class="retention">前关69.9%</span></div>
+      <div class="funnel-row"><strong>80003</strong><div class="track"><div class="fill" style="width:40.6%"></div></div><span class="count">5,211</span><span class="retention">前关58.1%</span></div>
+      <div class="funnel-row"><strong>80004</strong><div class="track"><div class="fill" style="width:27.7%"></div></div><span class="count">3,554</span><span class="retention">前关68.2%</span></div>
+      <div class="funnel-row"><strong>80005</strong><div class="track"><div class="fill" style="width:18.3%"></div></div><span class="count">2,349</span><span class="retention">前关66.1%</span></div>
+      <div class="funnel-row"><strong>80006</strong><div class="track"><div class="fill" style="width:9.6%"></div></div><span class="count">1,235</span><span class="retention">前关52.6%</span></div>
+      <div class="funnel-row"><strong>80007</strong><div class="track"><div class="fill" style="width:6.6%"></div></div><span class="count">841</span><span class="retention">前关68.1%</span></div>
+      <div class="funnel-row"><strong>80008</strong><div class="track"><div class="fill" style="width:3.2%"></div></div><span class="count">411</span><span class="retention">前关48.9%</span></div>
+      <div class="funnel-row"><strong>80009</strong><div class="track"><div class="fill" style="width:1.7%"></div></div><span class="count">219</span><span class="retention">前关53.3%</span></div>
+      <div class="funnel-row"><strong>80010</strong><div class="track"><div class="fill" style="width:1.4%"></div></div><span class="count">181</span><span class="retention">前关82.6%</span></div>
+    </div>
+    <p class="note">关内首次通关率在80004后超过98%，但关间仍有明显流失，因此当前主要矛盾已从“打不过”转为“是否继续进入下一关”。</p>
+  </section>
+
+  <h3 style="margin-top:26px">秒建筑：功能参与与操作效率</h3>
+  <section class="grid kpis">
+    <article class="card"><div class="metric-label">曝光人数</div><div class="metric-value">10,174</div><div class="metric-note">目标新进人群中约30%触达</div></article>
+    <article class="card"><div class="metric-label">完成点击人数</div><div class="metric-value">8,232</div><div class="metric-note">约24.3%的目标新进实际使用</div></article>
+    <article class="card"><div class="metric-label">曝光后参与率</div><div class="metric-value">80.9%</div><div class="metric-note">付费广告为81.1%</div></article>
+    <article class="card"><div class="metric-label">曝光到点击中位时间</div><div class="metric-value">2秒</div><div class="metric-note">入口识别和操作路径直接</div></article>
+  </section>
+  <section class="grid two" style="margin-top:14px">
+    <article class="card callout good"><h3>当前价值</h3><ul><li>超过八成看到气泡的玩家至少使用一次，说明“头顶气泡直接完成”的交互被快速理解。</li><li>付费广告与全部用户仅差0.2个百分点，便利性价值具有普适性。</li><li>按玩家、建筑ID、建筑等级去重后，免费机会点击率为50.0%；该指标会受到玩家是否在线、是否正在关注城建等因素影响，作为行为观察而非直接优化目标。</li></ul></article>
+    <article class="card callout"><h3>业务含义</h3><ul><li>功能明显降低了尾时等待和打开加速面板的操作成本。</li><li>首次点击时剩余免费时间中位数约33秒，玩家通常进入免费区后很快完成。</li><li>功能参与已被证明；下一步需要观察连续升级次数、升级间隔和尾时钻石消耗变化。</li></ul></article>
+  </section>
+
+  <h2>三、未来改进空间</h2>
+  <section class="grid two">
+    <article class="card"><div class="priority"><div class="priority-code">P0</div><div><h3>排查80005→80006与80007→80008关间断层</h3><p>相邻关卡保留率分别只有52.6%和48.9%，但进入下一关后的首次通关率仍超过98%。应重点检查返回城建、解锁条件、奖励反馈和继续挑战入口。</p></div></div></article>
+    <article class="card"><div class="priority"><div class="priority-code p1">P1</div><div><h3>补充秒建筑的长期效果验证</h3><p>当前曝光后参与率为80.9%，点击反应中位仅2秒，已说明入口容易理解。机会点击率还会受到玩家是否在线、是否关注城建及主动等待等因素影响，不宜直接作为优化目标；后续重点观察功能是否缩短连续升级间隔、提高连续升级次数，以及减少不必要的加速道具或钻石消耗。</p></div></div></article>
+    <article class="card"><div class="priority"><div class="priority-code p1">P1</div><div><h3>继续完善前段失败承接</h3><p>80001首次失败后仅52.1%重新挑战，低于后两关的69.6%。可以继续优化失败原因提示、成长引导和一键重试，但不作为本阶段主铺关卡的核心评价。</p></div></div></article>
+    <article class="card"><div class="priority"><div class="priority-code p2">P2</div><div><h3>把验证口径沉淀成标准数据资产</h3><p>ZD应固定输出首次通关、首次失败、无结算退出、首败重试和最终挽回；秒建筑建议补充queueId，避免同一玩家同建筑同等级的重复队列被合并。</p></div></div></article>
+  </section>
+
+  <h2>简单结论</h2>
+  <section class="card boss">
+    <p><strong>本阶段完成的不只是功能上线，而是把首日战斗和城建效率做成了可验证的体验闭环。</strong></p>
+    <ul><li>重点铺设的80004～80010首次通关率均超过98%，首次失败率最高1.06%，关内难度和运行表现稳定。</li><li>前三关作为完整链路参考，保留了约90%的首次通关和较好的失败挽回能力。</li><li>秒建筑曝光后参与率80.9%、点击反应中位仅2秒，交互方案被玩家快速理解并实际使用。</li><li>后续主要排查关间推进断层，并验证秒建筑对连续升级效率和资源消耗的长期影响。</li></ul>
+  </section>
+
+  <div class="footer">口径说明：ZD中reason=1为进关、2为通关、3为失败；一次reason=1开启一次挑战，下一次进关前未出现2/3记为无结算。观察期为统计时间窗内的新进第1天。付费广告按新进归因素材bid以“f-”开头。FreeTimeClick源码定义为0曝光、1点击，雅典娜落仓值整体偏移为1曝光、2点击。数据来源：雅典娜实时取数；本报告不展示无法形成有效对照的数据。</div>
+</main>
+</body>
+</html>
